@@ -7,12 +7,12 @@ I don't kown why protoc can not generate php-client,no one use grpc with php?
 
 Installation
 ------------
-go build main.go
+go get -u github.com/jichre/php_grpc_client_generator
 
 
 Run
 ------------
 
-./main --input_dir=./proto --output_dir=./
+./php_grpc_client_generator --input_dir=./proto --output_dir=./
 
 
