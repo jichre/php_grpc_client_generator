@@ -12,7 +12,7 @@ const (
 namespace {namespace};
 /**
  * service {namespace}{}
- * 生成 (gprc 定义 {namespace} 服务)的客户端
+ * Generate (gprc {namespace}) client
  */
 class {namespace}Client extends \Grpc\BaseStub {
 
@@ -69,6 +69,7 @@ func (g *GrpcTemplate) WriteTemp() {
 
 func (g *GrpcTemplate) WriteToFile(fileName string) {
 	g.buffer.WriteString(tEnd)
+	// fmt.Println(g.buffer.String())
 
 	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY, 0777)
 
@@ -76,6 +77,8 @@ func (g *GrpcTemplate) WriteToFile(fileName string) {
 		fmt.Println(err)
 		return
 	}
+
+	defer file.Close()
 
 	file.Write(g.buffer.Bytes())
 

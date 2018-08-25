@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"innotech.com/php_grpc_client_genertor/analyze"
-	"innotech.com/php_grpc_client_genertor/template"
+	"github.com/jichre/php_grpc_client_generator/analyze"
+	"github.com/jichre/php_grpc_client_generator/template"
 	"os"
 	"path/filepath"
 )

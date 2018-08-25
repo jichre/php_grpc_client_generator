@@ -67,6 +67,7 @@ func AnalysisProtoFile(fileName string) *RpcPackage {
 		//解析出service的名字
 		if len(line) > 7 && line[:7] == tagService {
 			noteLineNumStart = lineNum + 1
+			noteBuffer.Reset()
 			end := strings.Index(line, "{")
 			name := strings.Trim(line[8:end], " ")
 			rpcPackage.Service = append(rpcPackage.Service, &RpcService{ServiceName: name})
@@ -85,6 +86,7 @@ func AnalysisProtoFile(fileName string) *RpcPackage {
 				noteBytes := noteBuffer.Bytes()
 				note = string(noteBytes[:len(noteBytes)-2])
 			}
+
 			noteLineNumStart = lineNum + 1
 			noteBuffer.Reset()
 
@@ -92,7 +94,6 @@ func AnalysisProtoFile(fileName string) *RpcPackage {
 
 			//获取request类名
 			rline := line[4:len(line)]
-			fmt.Println(rline)
 			lindex := strings.Index(rline, "(")
 			rindex := strings.Index(rline, ")")
 
