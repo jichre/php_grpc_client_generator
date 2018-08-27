@@ -10,8 +10,9 @@ import (
 )
 
 var (
-	inputDir  = flag.String("input_dir", "", "General inputDir")
-	outputDir = flag.String("output_dir", "", "General outputDir")
+	inputDir    = flag.String("input_dir", "", "General inputDir")
+	outputDir   = flag.String("output_dir", "", "General outputDir")
+	func_prefix = flag.String("func_prefix", "false", "General funcPrefix")
 )
 
 func main() {
@@ -31,25 +32,25 @@ func main() {
 			return nil
 		}
 		result := analyze.AnalysisProtoFile(path)
-		upSlice := []byte(result.PackageName)
-		upName := result.PackageName
-		if upSlice[0] >= 97 && upSlice[0] <= 122 {
-			upSlice[0] = upSlice[0] - 32
-			upName = string(upSlice)
-		}
+		upName := analyze.GetStringFirstUp(result.PackageName)
 
 		tl.AddStart(upName)
 		for _, service := range result.Service {
+			prefix := ""
+			if *func_prefix == "true" {
+				prefix = analyze.GetStringFirstUp(service.ServiceName)
+			}
 			for _, method := range service.Methods {
 				tl.SetServiceFunc()
 				tl.Replace(upName, template.TagSpace)
 				tl.Replace(result.PackageName, template.TagPackage)
 				tl.Replace(service.ServiceName, template.TagServiceName)
 				tl.Replace(method.Note, template.TagRpcNode)
+				tl.Replace(prefix, template.TageFuncPreifx)
 				tl.Replace(method.FunName, template.TagServiceFunc)
 				tl.Replace(method.ResponseName, template.TagResponse)
 				tl.Replace(method.RequestName, template.TagRequest)
-				tl.WriteTemp()
+				tl.WriteServiceFunc()
 			}
 		}
 		outDir := *outputDir
