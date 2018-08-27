@@ -27,7 +27,7 @@ class {namespace}Client extends \Grpc\BaseStub {
 ?>
 `
 	tServericeFuc = `{rpcFuncNote}
-	public function {serviceFunc}(\{namespace}\{request} $argument, $metadata = [], $options = []) {
+	public function {prefix}{serviceFunc}(\{namespace}\{request} $argument, $metadata = [], $options = []) {
 		return $this->_simpleRequest('/{packageName}.{serviceName}/{serviceFunc}',
 			$argument,
 			['\{packageName}\{response}', 'decode'],
@@ -42,6 +42,7 @@ class {namespace}Client extends \Grpc\BaseStub {
 	TagResponse    = "{response}"
 	TagRequest     = "{request}"
 	TagRpcNode     = "{rpcFuncNote}"
+	TageFuncPreifx = "{prefix}"
 )
 
 type GrpcTemplate struct {
@@ -62,7 +63,7 @@ func (g *GrpcTemplate) Replace(value, tag string) {
 	g.temp = strings.Replace(g.temp, tag, value, -1)
 }
 
-func (g *GrpcTemplate) WriteTemp() {
+func (g *GrpcTemplate) WriteServiceFunc() {
 	g.buffer.WriteString(g.temp)
 	g.temp = ""
 }
