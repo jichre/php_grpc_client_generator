@@ -12,7 +12,7 @@ go get -u github.com/jichre/php_grpc_client_generator
 
 Run
 ------------
-
-./php_grpc_client_generator --input_dir=./proto --output_dir=./
+func_prefix: Will add prefix to function name if true
+php_grpc_client_generator --input_dir=./proto --output_dir=./ --func_prefix=true
 
 
