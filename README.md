@@ -1,4 +1,4 @@
-#php_grpc_client_generator
+8#php_grpc_client_generator
 
 A tool can generate php-grpc client from .proto(grpc)
 
@@ -13,6 +13,7 @@ go get -u github.com/jichre/php_grpc_client_generator
 Run
 ------------
 func_prefix: Will add prefix to function name if true
+
 php_grpc_client_generator --input_dir=./proto --output_dir=./ --func_prefix=true
 
 
